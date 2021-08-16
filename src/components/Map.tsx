@@ -1,7 +1,6 @@
 import React from 'react';
 import OlMap from 'ol/Map';
-import OlView from 'ol/View';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import {
   Style,
@@ -11,23 +10,19 @@ import {
 } from 'ol/style';
 import Feature from 'ol/Feature';
 import { Point } from 'ol/geom';
-import { OSM, Vector as VectorSource } from 'ol/source';
+import { Cluster, OSM, Vector as VectorSource } from 'ol/source';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { connect } from 'react-redux';
+import { IMap, IState } from '../interfaces';
 
-type MapProps = {
-  pointsObject: any;
-  center: Array<number>;
-  zoom: number;
-}
-
-class Map extends React.Component<MapProps, any> {
-  view: OlView;
+class Map extends React.Component<IMap> {
+  view: View;
 
   map: OlMap;
 
   constructor(props: any) {
     super(props);
-    const view = new OlView({
+    const view = new View({
       center: fromLonLat(props.center),
       zoom: props.zoom,
     });
@@ -69,13 +64,19 @@ class Map extends React.Component<MapProps, any> {
       features,
     });
 
-    const vector = new VectorLayer({
+    const clusterSource = new Cluster({
+      distance: 40,
+      minDistance: 40,
       source: vectorSource,
+    });
+
+    const vector = new VectorLayer({
+      source: clusterSource,
       style: new Style({
         image: new CircleStyle({
-          radius: 10,
-          fill: new Fill({ color: 'blue' }),
-          stroke: new Stroke({ color: '#000', width: 1 }),
+          radius: 5,
+          fill: new Fill({ color: '#1890ff' }),
+          stroke: new Stroke({ color: '#fff', width: 1 }),
         }),
       }),
     });
@@ -90,7 +91,7 @@ class Map extends React.Component<MapProps, any> {
   }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: IState) {
   return {
     pointsObject: state.points,
     center: state.center,

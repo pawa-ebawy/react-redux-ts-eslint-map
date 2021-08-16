@@ -4,8 +4,9 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
-        "airbnb"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -17,26 +18,23 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "react-hooks"
     ],
     "rules": {
-        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
-        "import/extensions": [
+        /*"linebreak-style": [
             "error",
-            "ignorePackages",
-            {
-                "ts": "never",
-                "tsx": "never"
-            }
+            "windows"
+        ],*/
+        "quotes": [
+            "error",
+            "single"
         ],
-        "react/destructuring-assignment": ["off", "always"],
-        "react/prop-types": ["off"]
-    },
-    "settings": {
-        "import/resolver": {
-            "typescript": {}
-        }
+        "semi": [
+            "error",
+            "always"
+        ],
+        "react/prop-types": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

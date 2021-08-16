@@ -1,9 +1,9 @@
 import React from 'react';
-import Map from './Map/Map';
-import Sidebar from './Sidebar/Sidebar';
-import Points from './Points/Points';
+import Map from './components/Map';
+import Sidebar from './components/Sidebar';
+import Points from './components/Points';
 
-const App = () => (
+const App: React.FC = () => (
   <>
     <header>
       <h1>Map App</h1>

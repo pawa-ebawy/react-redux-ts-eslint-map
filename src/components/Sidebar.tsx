@@ -2,11 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
+import { Dispatch } from 'redux';
+import { IState, ISidebar } from '../interfaces';
+import { addZoom, setPoints, subZoom } from '../actions/actions';
 
-interface ISidebar {
-  onSetPoints: any;
-  onAddZoom: any;
-  onSubZoom: any;
+interface ISidebarFunc {
+  onSetPoints: Dispatch;
+  onAddZoom: Dispatch;
+  onSubZoom: Dispatch;
   zoom: number;
 }
 
@@ -16,7 +19,7 @@ const Sidebar = (
     onAddZoom,
     onSubZoom,
     zoom,
-  }: ISidebar,
+  }: ISidebarFunc,
 ) => (
   <div className="sidebar-block">
     <Button style={{ marginBottom: '10px' }} type="primary" onClick={onSetPoints}>Добавить точки</Button>
@@ -29,7 +32,7 @@ const Sidebar = (
   </div>
 );
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: IState): ISidebar {
   return {
     zoom: state.zoom,
   };
@@ -37,9 +40,9 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    onSetPoints: () => dispatch({ type: 'SET_POINTS' }),
-    onAddZoom: () => dispatch({ type: 'ADD_ZOOM' }),
-    onSubZoom: () => dispatch({ type: 'SUB_ZOOM' }),
+    onSetPoints: () => dispatch(setPoints()),
+    onAddZoom: () => dispatch(addZoom()),
+    onSubZoom: () => dispatch(subZoom()),
   };
 }
 

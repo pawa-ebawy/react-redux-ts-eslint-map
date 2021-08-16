@@ -1,0 +1,6 @@
+.input_empty {
+    border: 1px solid #a11;
+}
+.input_full {
+    border: 1px solid rgb(17, 170, 124);
+}
